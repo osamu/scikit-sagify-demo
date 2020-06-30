@@ -1,8 +1,7 @@
 import os
-
+import joblib
 
 _MODEL_PATH = os.path.join('/opt/ml/', 'model')  # Path where all your model(s) live in
-
 
 class ModelService(object):
     model = None
@@ -11,11 +10,8 @@ class ModelService(object):
     def get_model(cls):
         """Get the model object for this instance, loading it if it's not already loaded."""
         if cls.model is None:
-            # TODO Load a specific model
-            # TODO Examples:
-            # TODO 1. keras.models.load_model(os.path.join(_MODEL_PATH, '<model_file>'))
-            # TODO 2. joblib.load('<model_file>')
-            cls.model = None
+            with open(os.path.join(_MODEL_PATH,'decision-tree-model.pkl'),'rb') as inp:
+                cls.model = joblib.load(inp)
         return cls.model
 
     @classmethod
@@ -33,14 +29,8 @@ def predict(json_input):
     """
 
     # TODO Transform json_input and assign the transformed value to model_input
-    model_input = None
+    model_input = json_input['features']
     prediction = ModelService.predict(model_input)
-    print(prediction)
-
-    # TODO If you have more than 1 models, then create more classes similar to ModelService
-    # TODO where each of one will load one of your models
-
-    # TODO Transform prediction to a dict and assign it to result
-    result = {}
-
+    result = {'result': prediction[0]}
+    print(result)
     return result
