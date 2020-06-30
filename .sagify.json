@@ -1,0 +1,8 @@
+{
+    "image_name": "scikit-sagify-demo",
+    "aws_profile": "default",
+    "aws_region": "us-east-1",
+    "python_version": "3.6",
+    "requirements_dir": "requirements.txt",
+    "sagify_module_dir": "src"
+}
